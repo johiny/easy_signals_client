@@ -12,7 +12,7 @@ const ConnectionScreen = ({setSocket}) => {
     const handleConnect = async () => {
         setLoading(true)
         try{
-        const socket = createSocket(ip);
+        const socket = createSocket("192.168.1.9");
         socket.on('connect', () => {
           console.log('Connected');
           setSocket(socket);

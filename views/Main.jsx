@@ -20,8 +20,9 @@ const Main = () => {
   [socket])
   return (
     <MainLayout>
-    {socket?.connected ? <Player image={image}/> : <ConnectionScreen setSocket={setSocket}/> 
-    }
+    {/* {socket?.connected ? <Player image={image}/> : <ConnectionScreen setSocket={setSocket}/> 
+    } */}
+    <ConnectionScreen setSocket={setSocket}/>
     </MainLayout>
   )
 }
