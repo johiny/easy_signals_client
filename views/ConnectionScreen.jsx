@@ -13,9 +13,9 @@ const ConnectionScreen = ({setSocket}) => {
         setLoading(true)
         try{
         const socket = createSocket("192.168.1.9");
+        setSocket(socket);
         socket.on('connect', () => {
           console.log('Connected');
-          setSocket(socket);
         })}
         catch(e){
           console.log(e)

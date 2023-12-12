@@ -9,20 +9,22 @@ const Main = () => {
   const [socket, setSocket] = useState(null);
   const [image, setImage] = useState(null);
   useEffect(() => {
-    socket?.on('image', (data) => {
+    if(!socket) return;
+    console.log(socket)
+    socket.on('image_change', (data) => {
+      console.log('llego una imagen', data)
       setImage(data);
     })
     return () => {
-      socket?.off('image');
+      socket.off('send_image');
     } 
   
-  },
-  [socket])
+  },[socket])
   return (
     <MainLayout>
-    {/* {socket?.connected ? <Player image={image}/> : <ConnectionScreen setSocket={setSocket}/> 
-    } */}
-    <ConnectionScreen setSocket={setSocket}/>
+    {socket?.connected ? <Player image={image}/> :
+    <ConnectionScreen setSocket={setSocket}/> 
+    }
     </MainLayout>
   )
 }

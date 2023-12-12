@@ -3,10 +3,10 @@ import { StyleSheet, View, Image } from 'react-native';
 const Player = ({image}) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={image}
-        style={styles.imagen}
-      />
+      {image ? 
+      <Image source={{uri: image}} style={styles.imagen} /> :
+      <h1>Agrega alguna imagen a tu pantalla</h1>
+}
     </View>
   )
 }
