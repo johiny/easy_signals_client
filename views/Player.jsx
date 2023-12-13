@@ -1,11 +1,20 @@
 import React from 'react'
-import { StyleSheet, View, Image } from 'react-native';
-const Player = ({image}) => {
+import { StyleSheet, View, Image} from 'react-native';
+import { Video } from 'expo-av';
+import {useWindowDimensions} from 'react-native';
+const Player = ({file}) => {
+  const {height, width} = useWindowDimensions();
   return (
     <View style={styles.container}>
-      {image ? 
-      <Image source={{uri: image}} style={styles.imagen} /> :
-      <h1>Agrega alguna imagen a tu pantalla</h1>
+      {file == null ? 
+      <h1>Agrega alguna imagen a tu pantalla</h1> :
+      file.type == 'image' ?
+      <Image source={{uri: file.file}} style={{...styles.imagen, width : width * 0.95, height : height * 0.95}} /> :
+      <Video 
+      source={{uri: file.file}} 
+      style={{...styles.imagen,width : width * 0.95, height : height * 0.95}} 
+      useNativeControls
+      isLooping/>
 }
     </View>
   )
@@ -18,9 +27,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     imagen: {
-      width: 800,
-      height: 800,
-      resizeMode: 'cover', // Opciones: 'cover', 'contain', 'stretch', 'repeat', 'center'
+      flex: 1,
+      resizeMode: 'cover'
     },
   });
 
