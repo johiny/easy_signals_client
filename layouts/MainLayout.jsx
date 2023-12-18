@@ -12,7 +12,6 @@ const MainLayout = ({children}) => {
 const layoutStyles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20
     }
 })
 
