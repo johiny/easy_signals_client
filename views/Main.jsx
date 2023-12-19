@@ -8,11 +8,13 @@ const Main = () => {
   const [loading, setLoading] = useState(null);
   const [socket, setSocket] = useState(null);
   const [file, setFile] = useState(null);
+  const [screenId, setScreenID] = useState(null);
+  const [ip, setIp] = useState('');
   useEffect(() => {
     if(!socket) return;
     socket.on('file_change', (file) => {
-      console.log(file);
       setLoading(true);
+      console.log(file);
       setFile(file);
     })
     return () => {
@@ -23,8 +25,8 @@ const Main = () => {
   return (
     <MainLayout>
     { loading && <Loader/> }
-    {socket ? <Player file={file} setLoading={setLoading}/> :
-    <ConnectionScreen setSocket={setSocket}/> 
+    {socket ? <Player file={file} screen_id={screenId} ip={ip} setLoading={setLoading}/> :
+    <ConnectionScreen setIp={setIp} ip={ip} setSocket={setSocket} setScreenID={setScreenID}/> 
     }
     </MainLayout>
   )

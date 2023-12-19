@@ -5,9 +5,8 @@ import { Text } from 'react-native-paper';
 import { useState } from 'react';
 import  createSocket  from '../services/backend_connection';
 
-const ConnectionScreen = ({setSocket}) => {
+const ConnectionScreen = ({setSocket, setScreenID, ip, setIp}) => {
     const [loading, setLoading] = useState(false);
-    const [ip, setIp] = useState('');
     const [error, setError] = useState(false);
     const handleConnect = async () => {
         setLoading(true)
@@ -15,8 +14,11 @@ const ConnectionScreen = ({setSocket}) => {
         const socket = createSocket(ip);
         setSocket(socket);
         socket.on('connect', () => {
-          console.log('Connected');
-        })}
+          console.log('Connected',  socket.id);
+          setScreenID(socket.id);
+        }
+        )
+      }
         catch(e){
           console.log(e)
           setLoading(false)
