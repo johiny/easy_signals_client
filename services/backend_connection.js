@@ -2,8 +2,14 @@ import { io } from "socket.io-client";
 
 
     const createSocket = (ip) =>{
-        const ENDPOINT = `ws://${ip}:3000`
-        return io(ENDPOINT);
+        try{
+        const ENDPOINT = `http://${ip}:3000`
+        const socket =  io(ENDPOINT);
+        return socket
+        }
+        catch(e){
+            console.log("error terrible conectando", e)
+        }
     
     }
 

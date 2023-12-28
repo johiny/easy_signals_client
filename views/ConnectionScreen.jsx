@@ -4,18 +4,22 @@ import { ActivityIndicator, MD2Colors, TextInput, Button } from 'react-native-pa
 import { Text } from 'react-native-paper';
 import { useState } from 'react';
 import  createSocket  from '../services/backend_connection';
-
 const ConnectionScreen = ({setSocket, setScreenID, ip, setIp}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const handleConnect = async () => {
         setLoading(true)
         try{
-        const socket = createSocket(ip);
-        setSocket(socket);
+        const socket = createSocket(ip, setError);
+        setSocket(socket)
+        setLoading(false)
         socket.on('connect', () => {
-          console.log('Connected',  socket.id);
           setScreenID(socket.id);
+        }
+        )
+        socket.on('connect_error', (reason) => {
+          console.log(`ip a la cual se intento conectar ${ip} error: ${JSON.stringify(reason)}`)
+          setError("error conectando al server local");
         }
         )
       }
@@ -39,7 +43,7 @@ const ConnectionScreen = ({setSocket, setScreenID, ip, setIp}) => {
       />
       <Button mode="elevated" onPress={handleConnect}>Connect</Button>
       {loading && <ActivityIndicator animating={loading} color={MD2Colors.red800} />}
-      {error && <Text variant="bodyMedium">{error}</Text>}
+      {error && <Text variant="displayMedium">{error}</Text>}
     </View>
   )
 }

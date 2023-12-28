@@ -27,7 +27,10 @@ const Player = ({ file, setLoading, screen_id, ip }) => {
           shouldPlay
           resizeMode={ResizeMode.STRETCH}
           onReadyForDisplay={videoData => {
-            videoData.srcElement.style.position = "initial"
+            if(videoData.srcElement)
+            {
+              videoData.srcElement.style.position = "initial"
+            }
           }}
         />
       )}
@@ -48,8 +51,6 @@ const styles = StyleSheet.create({
   video: {
     flex: 1,
     resizeMode: "stretch",
-    height : "100vh",
-    width: "100vw"
   },
 });
 

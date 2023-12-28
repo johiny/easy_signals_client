@@ -18,14 +18,14 @@ const Main = () => {
       setFile(file);
     })
     return () => {
-      socket.off('send_image');
+      socket.off('file_change');
     } 
   
   },[socket])
   return (
     <MainLayout>
     { loading && <Loader/> }
-    {socket ? <Player file={file} screen_id={screenId} ip={ip} setLoading={setLoading}/> :
+    {socket?.connected ? <Player file={file} screen_id={screenId} ip={ip} setLoading={setLoading}/> :
     <ConnectionScreen setIp={setIp} ip={ip} setSocket={setSocket} setScreenID={setScreenID}/> 
     }
     </MainLayout>
