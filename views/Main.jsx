@@ -14,7 +14,6 @@ const Main = () => {
     if(!socket) return;
     socket.on('file_change', (file) => {
       setLoading(true);
-      console.log(file);
       setFile(file);
     })
     return () => {
