@@ -22,11 +22,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "config": {
-        "cleartext": {
-          "include": ["192.168.*.*"]
-        }
-      },
       "package": "com.johiny.easy_signals_front"
     },
     "web": {
@@ -36,6 +31,14 @@
       "eas": {
         "projectId": "2e593238-52b0-47bf-983c-b1a45569f739"
       }
-    }
+    },
+    "plugins": [
+      "expo-build-properties",
+      {
+        "android": {
+          "usesCleartextTraffic" :  true
+        }
+      }
+    ]
   }
 }
