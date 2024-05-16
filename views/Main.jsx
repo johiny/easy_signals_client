@@ -1,34 +1,18 @@
 import React from 'react'
 import MainLayout from '../layouts/MainLayout';
-import { useState, useEffect} from 'react';
-import ConnectionScreen from './ConnectionScreen';
-import Player from './Player';
-import Loader from '../components/Loader';
+import LoadingScreeen from './LoadingScreeen';
+import { useState } from 'react';
+import useServerConnection from '../hooks/useServerConnection';
+import PlayersGrid from '../components/PlayersGrid';
 const Main = () => {
-  const [loading, setLoading] = useState(null);
-  const [socket, setSocket] = useState(null);
-  const [file, setFile] = useState(null);
-  const [screenId, setScreenID] = useState(null);
-  const [ip, setIp] = useState('');
-  useEffect(() => {
-    if(!socket) return;
-    socket.on('file_change', (file) => {
-      setLoading(true);
-      setFile(file);
-    })
-    return () => {
-      socket.off('file_change');
-    } 
   
-  },[socket])
-  return (
+  const [loadingState, setLoadingState] = useState(null)
+  // const {socket, currentLayout, screenState} = useServerConnection(setLoadingState)
+    return(
     <MainLayout>
-    { loading && <Loader/> }
-    {socket?.connected ? <Player file={file} screen_id={screenId} ip={ip} setLoading={setLoading}/> :
-    <ConnectionScreen setIp={setIp} ip={ip} setSocket={setSocket} setScreenID={setScreenID}/> 
-    }
+        { loadingState === null? <PlayersGrid socket={"paco"} screen_id="pacopaco" currentLayout={{name: 'grid4Screens', screens: 4}} screenState={"paco"} setLoadingState={setLoadingState}/> : <LoadingScreeen loadingState={loadingState}/>}
     </MainLayout>
-  )
+    )
 }
 
 

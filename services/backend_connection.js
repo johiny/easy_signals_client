@@ -1,7 +1,8 @@
 import { io } from "socket.io-client";
-    const createSocket = (ip) =>{
+    function createSocket(ip){
         try{
         const ENDPOINT = `http://${ip}:3000`
+        console.log("intentando conectar a :", ENDPOINT)
         const socket =  io(ENDPOINT, {
             secure: true,
              rejectUnauthorized: false
@@ -9,7 +10,7 @@ import { io } from "socket.io-client";
         return socket
         }
         catch(e){
-            console.log("error terrible conectando", e)
+            return createSocket(ip)
         }
     
     }

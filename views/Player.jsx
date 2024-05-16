@@ -3,38 +3,11 @@ import { StyleSheet, View, Image, Text } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import { useWindowDimensions } from "react-native";
 const protocol = 'http'
-const Player = ({ file, setLoading, screen_id, ip }) => {
+const Player = ({ file, setLoading, screen_id, ip, setLoadingState }) => {
   const { height, width } = useWindowDimensions();
   return (
     <View style={styles.container}>
-      {file == null ? (
-        <Text>Agrega alguna imagen a tu pantalla</Text>
-      ) 
-      :
-       file.filetype.includes("image") ? (
-        <Image
-          source={{ uri: `${protocol}://${ip}:3000/currentfile/${screen_id}/${file.name}` }}
-          style={{ ...styles.imagen, width: width, height: height }}
-          onLoadEnd={() => setLoading(false)}
-        />
-      ) : 
-      (
-        <Video
-          source={{ uri: `${protocol}://${ip}:3000/currentfile/${screen_id}/${file.name}` }}
-          style={{ ...styles.video, width: width, height: height }}
-          useNativeControls
-          isLooping
-          onLoad={() => setLoading(false)}
-          shouldPlay
-          resizeMode={ResizeMode.STRETCH}
-          onReadyForDisplay={videoData => {
-            if(videoData.srcElement)
-            {
-              videoData.srcElement.style.position = "initial"
-            }
-          }}
-        />
-      )}
+     <Text>Conectado al server!</Text>
     </View>
   );
 };

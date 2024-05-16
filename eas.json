@@ -3,7 +3,7 @@
     "version": ">= 5.9.3"
   },
   "build": {
-    "easy_signals_0.0.1": {
+    "easy_signals_apk": {
       "android": {
         "buildType": "apk"
       }
