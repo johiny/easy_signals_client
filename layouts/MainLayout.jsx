@@ -14,6 +14,7 @@ const MainLayout = ({children}) => {
 const layoutStyles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#141313'
     }
 })
 

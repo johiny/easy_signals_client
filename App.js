@@ -1,4 +1,3 @@
-import ReactNPaperWrapper from './components/ReactNPaperWrapper';
 import Main from './views/Main';
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect } from "react";
@@ -13,9 +12,9 @@ export default function App() {
     );
   }
   return (
-    <ReactNPaperWrapper>
+    <>
       <StatusBar hidden/>
-    <Main/>
-    </ReactNPaperWrapper>
+      <Main/>
+    </>
   );
 }

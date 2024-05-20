@@ -7,10 +7,10 @@ import PlayersGrid from '../components/PlayersGrid';
 const Main = () => {
   
   const [loadingState, setLoadingState] = useState(null)
-  // const {socket, currentLayout, screenState} = useServerConnection(setLoadingState)
+  const {socket, currentLayout, screenState, localServerIP} = useServerConnection(setLoadingState)
     return(
     <MainLayout>
-        { loadingState === null? <PlayersGrid socket={"paco"} screen_id="pacopaco" currentLayout={{name: 'grid4Screens', screens: 4}} screenState={"paco"} setLoadingState={setLoadingState}/> : <LoadingScreeen loadingState={loadingState}/>}
+        { loadingState === null && socket != null? <PlayersGrid ip={localServerIP} socket={socket} screen_id={socket.id} currentLayout={currentLayout} screenState={screenState} setLoadingState={setLoadingState}/> : <LoadingScreeen loadingState={loadingState}/>}
     </MainLayout>
     )
 }

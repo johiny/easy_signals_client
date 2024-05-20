@@ -1,18 +1,25 @@
-import useLanScanner from "../services/lanScanner"
 import createSocket from "../services/backend_connection";
+import LanScannerDummy from "./useLanScannerDummy";
 import { useState, useEffect } from "react";
-import useLanScannerDummy from "./useLanScannerDummy";
+import lanScanner from "../services/lanScanner";
 const useServerConnection = (setLoadingState) => {
     const [socket, setSocket] = useState(null);
     const [currentLayout, setcurrentLayout] = useState({name: 'Full Screen', screens: 1});
     const  [screenState, setScreenState] = useState([])
+    const [localServerIP, setLocalServerIP] = useState(null)
  useEffect(() => {
     const connectToServer = async () => 
         {
     try{
         setLoadingState("Buscando servidor local...")
         console.log("buscando servidor local")
-        const localServerIP = await useLanScannerDummy()
+        const localServerIP = await lanScanner()
+        if(localServerIP === null){
+          console.log("no se encontro el servidor local")
+          setLoadingState("No se encontro el servidor local")
+          return
+        }
+        setLocalServerIP(localServerIP)
         setLoadingState("Conectandose al servidor local..")
         console.log("Conectandose al servidor local")
         const socket = createSocket(localServerIP);
@@ -39,7 +46,7 @@ const useServerConnection = (setLoadingState) => {
 connectToServer()
  },[])
 
-    return {socket, currentLayout, screenState}
+    return {socket, currentLayout, screenState, localServerIP}
 }
 
 export default useServerConnection
